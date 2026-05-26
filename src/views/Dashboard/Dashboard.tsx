@@ -105,7 +105,7 @@ export function Dashboard() {
 
       {/* Prayer list */}
       <div className="space-y-2">
-        <h2 className="text-sm font-medium text-slate-500 uppercase tracking-widest">Today's Prayers</h2>
+        <h2 className="text-sm font-medium text-slate-500 uppercase tracking-widest">{"Today's Prayers"}</h2>
         {isLoading ? (
           <div className="space-y-2">
             {PRAYER_ORDER.map((name) => (

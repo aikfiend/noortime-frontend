@@ -1,4 +1,6 @@
-import { useSearchParams, Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const MESSAGES: Record<string, { title: string; body: string }> = {
   domain_not_allowed: {
@@ -11,7 +13,7 @@ const MESSAGES: Record<string, { title: string; body: string }> = {
   },
   login_failed: {
     title: 'Login Failed',
-    body: 'We couldn\'t complete the sign-in process. Please try again.',
+    body: "We couldn't complete the sign-in process. Please try again.",
   },
   auth_failed: {
     title: 'Authentication Failed',
@@ -25,7 +27,7 @@ const FALLBACK = {
 };
 
 export function AuthError() {
-  const [params] = useSearchParams();
+  const params = useSearchParams();
   const reason = params.get('reason') ?? 'auth_failed';
   const { title, body } = MESSAGES[reason] ?? FALLBACK;
 
@@ -68,12 +70,12 @@ export function AuthError() {
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <a
-            href={`${import.meta.env.VITE_API_URL || ''}/api/auth/google`}
+            href="/api/auth/google"
             className="btn-primary justify-center"
           >
             Try a different account
           </a>
-          <Link to="/" className="btn-ghost justify-center">
+          <Link href="/" className="btn-ghost justify-center">
             Back to home
           </Link>
         </div>

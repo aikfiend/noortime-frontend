@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { usersApi } from '@/api/client';
@@ -67,7 +68,7 @@ export function Settings() {
       {user && (
         <div className="card flex items-center gap-4">
           {user.avatar_url && (
-            <img src={user.avatar_url} alt={user.name} className="w-12 h-12 rounded-full ring-2 ring-navy-700" />
+            <Image src={user.avatar_url} alt={user.name} width={48} height={48} className="rounded-full ring-2 ring-navy-700" />
           )}
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-white truncate">{user.name}</p>

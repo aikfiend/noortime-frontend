@@ -27,5 +27,5 @@ jobs:
             git reset --hard origin/main
             rm -rf node_modules
             npm ci
-            VITE_API_URL=${{ secrets.VITE_API_URL }} npm run build
+            npm run build
             pm2 restart noortime-frontend

@@ -1,5 +1,7 @@
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { Navigate } from 'react-router-dom';
 
 const FEATURES = [
   { icon: '🕌', title: 'Accurate Prayer Times', desc: 'Powered by AlAdhan with support for all major calculation methods.' },
@@ -12,10 +14,15 @@ const FEATURES = [
 
 export function Landing() {
   const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
 
-  if (!isLoading && isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.replace('/dashboard');
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (!isLoading && isAuthenticated) return null;
 
   return (
     <div className="min-h-screen bg-navy-950 flex flex-col">
@@ -39,7 +46,7 @@ export function Landing() {
           </p>
 
           <a
-            href={`${import.meta.env.VITE_API_URL || ''}/api/auth/google`}
+            href="/api/auth/google"
             className="btn-primary text-base px-8 py-4 rounded-2xl shadow-lg shadow-emerald-900/40"
           >
             <GoogleIcon />

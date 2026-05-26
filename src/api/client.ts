@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api',
+  baseURL: '/api',
   withCredentials: true, // send HttpOnly session cookie on every request
   headers: { 'Content-Type': 'application/json' },
 });
@@ -10,7 +10,11 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    if (error.response?.status === 401 && window.location.pathname !== '/') {
+    if (
+      error.response?.status === 401 &&
+      typeof window !== 'undefined' &&
+      window.location.pathname !== '/'
+    ) {
       window.location.href = '/';
     }
     return Promise.reject(error);
