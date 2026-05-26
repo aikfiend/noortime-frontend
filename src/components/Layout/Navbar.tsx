@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { to: '/streak', label: 'Streak' },
   { to: '/qibla', label: 'Qibla' },
   { to: '/mosques', label: 'Mosques' },
+  { to: '/holidays', label: 'Holidays' },
 ];
 
 export function Navbar() {

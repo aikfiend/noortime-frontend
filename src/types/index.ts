@@ -68,3 +68,11 @@ export interface Coords {
   latitude: number;
   longitude: number;
 }
+
+export interface IslamicHoliday {
+  name: string;
+  description: string;
+  date: string; // YYYY-MM-DD
+  hijriDate: string;
+  type: 'eid' | 'ramadan' | 'observance';
+}

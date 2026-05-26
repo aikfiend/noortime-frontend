@@ -69,3 +69,8 @@ export const mosquesApi = {
   nearby: (lat: number, lng: number, radius?: number) =>
     api.get('/mosques', { params: { lat, lng, radius } }),
 };
+
+// ── Holidays ──────────────────────────────────────────────────────────────────
+export const holidaysApi = {
+  year: (year: number) => api.get('/holidays', { params: { year } }),
+};

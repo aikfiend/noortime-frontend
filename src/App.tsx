@@ -8,6 +8,7 @@ import { Schedule } from '@/pages/Schedule/Schedule';
 import { Streak } from '@/pages/Streak/Streak';
 import { Qibla } from '@/pages/Qibla/Qibla';
 import { Mosques } from '@/pages/Mosques/Mosques';
+import { Holidays } from '@/pages/Holidays/Holidays';
 import { Settings } from '@/pages/Settings/Settings';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -53,6 +54,7 @@ function AppRoutes() {
         } />
         <Route path="/qibla" element={<Qibla />} />
         <Route path="/mosques" element={<Mosques />} />
+        <Route path="/holidays" element={<Holidays />} />
         <Route path="/settings" element={
           <ProtectedRoute><Settings /></ProtectedRoute>
         } />
