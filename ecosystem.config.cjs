@@ -5,7 +5,7 @@ module.exports = {
     {
       name: 'noortime-frontend',
       script: 'serve',
-      args: '-s dist -l 3000',
+      args: 'dist --single --listen 3000',
       error_file: '/var/log/services/frontend/error.log',
       out_file: '/var/log/services/frontend/out.log',
       merge_logs: true,
