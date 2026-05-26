@@ -10,18 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install & build
-        run: |
-          npm ci
-          npm run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -30,8 +18,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            cd ~/noortime-frontend
+            cd /services/frontend
             git pull origin main
             npm ci
             VITE_API_URL=${{ secrets.VITE_API_URL }} npm run build
-            pm2 restart noortime-frontend || pm2 serve dist 3000 --name noortime-frontend --spa
+            pm2 restart noortime-frontend
