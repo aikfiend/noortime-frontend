@@ -6,8 +6,8 @@ module.exports = {
       name: 'noortime-frontend',
       script: 'serve',
       args: 'dist',
-      error_file: '/var/log/services/frontend/error.log',
-      out_file: '/var/log/services/frontend/out.log',
+      error_file: '/var/log/services/noortime-frontend/error.log',
+      out_file: '/var/log/services/noortime-frontend/out.log',
       merge_logs: true,
       env: {
         NODE_ENV: 'production',
