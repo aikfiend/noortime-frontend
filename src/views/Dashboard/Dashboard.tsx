@@ -72,7 +72,7 @@ export function Dashboard() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold text-white">{greeting}{user ? `, ${user.name.split(' ')[0]}` : ''}</h1>
+        <h1 className="text-2xl font-semibold text-white">{greeting}{user?.name ? `, ${user.name.split(' ')[0]}` : ''}</h1>
         <p className="text-slate-400 text-sm mt-1">
           {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </p>

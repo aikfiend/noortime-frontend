@@ -67,8 +67,8 @@ export function Settings() {
       {/* Account */}
       {user && (
         <div className="card flex items-center gap-4">
-          {user.avatar_url && (
-            <Image src={user.avatar_url} alt={user.name} width={48} height={48} className="rounded-full ring-2 ring-navy-700" />
+          {user.image && (
+            <Image src={user.image} alt={user.name ?? ''} width={48} height={48} className="rounded-full ring-2 ring-navy-700" />
           )}
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-white truncate">{user.name}</p>

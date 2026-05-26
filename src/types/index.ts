@@ -1,4 +1,14 @@
+/** Session user — fields available from useAuth() / useSession(). */
 export interface User {
+  id: number;
+  name?: string | null;
+  email?: string | null;
+  /** Google profile picture URL (NextAuth standard field). */
+  image?: string | null;
+}
+
+/** Full DB user record — returned by GET /api/users/me inside UserProfile. */
+export interface DbUser {
   id: number;
   google_id: string;
   email: string;
@@ -25,7 +35,7 @@ export interface UserPreferences {
 }
 
 export interface UserProfile {
-  user: User;
+  user: DbUser;
   location: UserLocation | null;
   preferences: UserPreferences | null;
 }

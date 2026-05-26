@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useAuth } from '@/hooks/useAuth';
 
 const NAV_LINKS = [
@@ -54,8 +55,8 @@ export function Navbar() {
                 </svg>
               </Link>
               <div className="flex items-center gap-2">
-                {user.avatar_url && (
-                  <Image src={user.avatar_url} alt={user.name} width={32} height={32} className="rounded-full ring-2 ring-navy-700" />
+                {user.image && (
+                  <Image src={user.image} alt={user.name ?? ''} width={32} height={32} className="rounded-full ring-2 ring-navy-700" />
                 )}
                 <button onClick={() => logout()} className="btn-ghost text-sm text-slate-400">
                   Sign out
@@ -63,12 +64,12 @@ export function Navbar() {
               </div>
             </>
           ) : (
-            <a
-              href="/api/auth/google"
+            <button
+              onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
               className="btn-primary text-sm"
             >
               Sign in with Google
-            </a>
+            </button>
           )}
         </div>
       </div>

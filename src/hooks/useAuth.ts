@@ -1,37 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { authApi } from '@/api/client';
-import type { User } from '@/types';
+import { useSession, signOut } from 'next-auth/react';
 
 export function useAuth() {
-  const queryClient = useQueryClient();
-
-  const { data: user, isLoading } = useQuery<User | null>({
-    queryKey: ['auth', 'me'],
-    queryFn: async () => {
-      try {
-        const res = await authApi.me();
-        return res.data as User;
-      } catch {
-        return null;
-      }
-    },
-    staleTime: 5 * 60 * 1000,
-    retry: false,
-  });
-
-  const logoutMutation = useMutation({
-    mutationFn: () => authApi.logout(),
-    onSuccess: () => {
-      queryClient.setQueryData(['auth', 'me'], null);
-      queryClient.clear();
-      window.location.href = '/';
-    },
-  });
+  const { data: session, status } = useSession();
 
   return {
-    user: user ?? null,
-    isAuthenticated: !!user,
-    isLoading,
-    logout: logoutMutation.mutate,
+    user: session?.user ?? null,
+    isAuthenticated: status === 'authenticated',
+    isLoading: status === 'loading',
+    logout: () => signOut({ callbackUrl: '/' }),
   };
 }

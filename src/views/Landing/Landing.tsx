@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useAuth } from '@/hooks/useAuth';
 
 const FEATURES = [
@@ -45,13 +46,13 @@ export function Landing() {
             and build a lasting streak — beautifully.
           </p>
 
-          <a
-            href="/api/auth/google"
+          <button
+            onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
             className="btn-primary text-base px-8 py-4 rounded-2xl shadow-lg shadow-emerald-900/40"
           >
             <GoogleIcon />
             Continue with Google
-          </a>
+          </button>
         </div>
       </section>
 

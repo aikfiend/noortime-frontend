@@ -1,12 +1,29 @@
 'use client';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
+// Keys from our custom redirects (reason=) and NextAuth built-in errors (error=)
 const MESSAGES: Record<string, { title: string; body: string }> = {
+  // Custom domain restriction redirect
   domain_not_allowed: {
     title: 'Access Restricted',
     body: 'NoorTime is only available to @clips4sale.com accounts. Please sign in with your Clips4Sale Google account.',
   },
+  // NextAuth built-in errors
+  AccessDenied: {
+    title: 'Access Denied',
+    body: 'You do not have permission to sign in.',
+  },
+  OAuthCallbackError: {
+    title: 'Sign-in Failed',
+    body: 'An error occurred during the Google sign-in flow. Please try again.',
+  },
+  OAuthSignin: {
+    title: 'Sign-in Error',
+    body: 'Could not initiate Google sign-in. Please try again.',
+  },
+  // Legacy NestJS reasons kept for graceful handling
   no_email: {
     title: 'No Email Provided',
     body: 'Your Google account did not share an email address. Please try again and grant email access.',
@@ -28,8 +45,10 @@ const FALLBACK = {
 
 export function AuthError() {
   const params = useSearchParams();
-  const reason = params.get('reason') ?? 'auth_failed';
-  const { title, body } = MESSAGES[reason] ?? FALLBACK;
+  // NextAuth uses ?error=, our custom redirect uses ?reason=
+  const key = params.get('reason') ?? params.get('error') ?? 'auth_failed';
+  const { title, body } = MESSAGES[key] ?? FALLBACK;
+  const isDomainError = key === 'domain_not_allowed';
 
   return (
     <div className="min-h-screen bg-navy-950 flex items-center justify-center px-4">
@@ -60,7 +79,7 @@ export function AuthError() {
         </div>
 
         {/* Domain badge */}
-        {reason === 'domain_not_allowed' && (
+        {isDomainError && (
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-navy-800 border border-navy-700">
             <span className="text-slate-500 text-sm">Required domain:</span>
             <span className="text-emerald-400 font-mono text-sm font-medium">@clips4sale.com</span>
@@ -69,12 +88,12 @@ export function AuthError() {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-          <a
-            href="/api/auth/google"
+          <button
+            onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
             className="btn-primary justify-center"
           >
             Try a different account
-          </a>
+          </button>
           <Link href="/" className="btn-ghost justify-center">
             Back to home
           </Link>

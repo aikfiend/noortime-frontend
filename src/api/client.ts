@@ -23,12 +23,6 @@ api.interceptors.response.use(
 
 export default api;
 
-// ── Auth ──────────────────────────────────────────────────────────────────────
-export const authApi = {
-  me: () => api.get('/auth/me'),
-  logout: () => api.post('/auth/logout'),
-};
-
 // ── Users ─────────────────────────────────────────────────────────────────────
 export const usersApi = {
   profile: () => api.get('/users/me'),
