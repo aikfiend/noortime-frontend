@@ -100,6 +100,18 @@ export function Mosques() {
           ))}
         </div>
       )}
+
+      <p className="text-xs text-slate-600 text-center pt-2">
+        Mosque data ©{' '}
+        <a
+          href="https://www.openstreetmap.org/copyright"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-slate-400"
+        >
+          OpenStreetMap contributors
+        </a>
+      </p>
     </div>
   );
 }
