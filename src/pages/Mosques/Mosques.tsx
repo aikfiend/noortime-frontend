@@ -85,7 +85,13 @@ export function Mosques() {
         <div className="space-y-3">
           <p className="text-xs text-slate-500">{data.length} mosque{data.length !== 1 ? 's' : ''} found</p>
           {data.map((mosque, i) => (
-            <div key={mosque.id} className="card hover:border-emerald-800/60 transition-colors flex items-start gap-4">
+            <a
+              key={mosque.id}
+              href={`https://www.openstreetmap.org/?mlat=${mosque.lat}&mlon=${mosque.lng}&zoom=17`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card hover:border-emerald-800/60 transition-colors flex items-start gap-4"
+            >
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-900/40 flex items-center justify-center text-emerald-400 font-semibold text-sm">
                 {i + 1}
               </div>
@@ -95,8 +101,9 @@ export function Mosques() {
               </div>
               <div className="flex-shrink-0 text-right">
                 <p className="text-gold-400 font-mono text-sm">{formatDistance(mosque.distance)}</p>
+                <p className="text-slate-600 text-xs mt-0.5">View on map ↗</p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       )}
