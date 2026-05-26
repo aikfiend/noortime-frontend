@@ -33,6 +33,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   session: { strategy: 'jwt' },
 
+  // Required when running behind a reverse proxy (ALB) — allows NextAuth to
+  // trust the Host header forwarded from the load balancer.
+  trustHost: true,
+
   // Custom pages
   pages: { error: '/auth/error' },
 
